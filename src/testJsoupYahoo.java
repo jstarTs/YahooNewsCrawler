@@ -18,7 +18,7 @@ public class testJsoupYahoo
 	
 	public static void main(String[] args)
 	{
-		WebClient webClient = new WebClient(BrowserVersion.CHROME);
+		com.gargoylesoftware.htmlunit.WebClient webClient = new com.gargoylesoftware.htmlunit.WebClient(BrowserVersion.CHROME);
 
 		webClient.waitForBackgroundJavaScript(50000);
 
@@ -26,19 +26,49 @@ public class testJsoupYahoo
 		
 		try 
 		{
+//			String url  = "http://tw.yahoo.com/";
+//		     Document doc = Jsoup.connect(url).get();
+//		     
+//		     //get first news tab one
+//		     Element t1 = doc.getElementById("t1");
+//		     
+//		     //get news title
+//		     Elements newsTitle = t1.select("a[href] > span");
+//		     
+//		     //print size
+//		        System.out.println("size:" + newsTitle.size());
+//		        
+//		        //print news title
+//		        for(Element e:newsTitle){
+//		         System.out.println("title:" + e.text());
+//		        }
+		        
+		    
 			
 			
 			webClient.getOptions().setJavaScriptEnabled(true);
 			
+			webClient.getOptions().setCssEnabled(false);
+			webClient.getOptions().setJavaScriptEnabled(true);
+			webClient.getOptions().setRedirectEnabled(true);
+			webClient.getOptions().setThrowExceptionOnScriptError(false);
+			webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
+			webClient.getOptions().setTimeout(50000);
 			
+			 
 			//String urlstr = "https://tw.news.yahoo.com/%E6%B7%A1%E5%AD%A3%E8%A1%9D%E8%B2%B7%E6%B0%A3-%E9%87%8F%E8%B2%A9%E5%BA%97%E6%8E%A8%E9%AE%91%E9%AD%9A-%E7%87%95%E7%AA%A9%E8%A9%A6%E5%90%83-042031924.html";
 			
-			String urlstr = "https://tw.news.yahoo.com/archive";
+			String urlstr = "http://tw.news.yahoo.com/archive";
+			
+			HtmlPage htmlPage = webClient.getPage(urlstr);
+			webClient.waitForBackgroundJavaScript(10000);
 			
 			//URL url = new URL(urlstr);
 			
 			//Document document = Jsoup.parse(url, 3000);
-			Document document = Jsoup.connect(urlstr).get();
+			//Document document = Jsoup.connect(urlstr).get();
+			
+			Document document=Jsoup.parse(htmlPage.asXml());
 			
 			//Element newlistone = document.getElementById("Col1-3-StreamContainerArchive-Proxy");
 			
@@ -51,10 +81,10 @@ public class testJsoupYahoo
 			
 			System.out.println(newsList.first().getElementsByTag("li").size());
 			
-			for(Element newsArticle : newsList.first().getAllElements())
-			{
-				System.out.println(newsArticle.child(0).tagName());
-			}
+//			for(Element newsArticle : newsList.first().getAllElements())
+//			{
+//				System.out.println(newsArticle.child(0).tagName());
+//			}
 			
 //			String title , testurl ;
 //			
