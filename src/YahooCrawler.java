@@ -21,6 +21,18 @@ public class YahooCrawler extends BreadthCrawler {
      */
     public YahooCrawler(String crawlPath, boolean autoParse) {
         super(crawlPath, autoParse);
+//        /*start page*/
+//        this.addSeed("http://news.yahoo.com/");
+//
+//        /*fetch url like http://news.yahoo.com/xxxxx*/
+//        this.addRegex("http://news.yahoo.com/.*");
+//        /*do not fetch url like http://news.yahoo.com/xxxx/xxx)*/
+//        this.addRegex("-http://news.yahoo.com/.+/.*");
+//        /*do not fetch jpg|png|gif*/
+//        this.addRegex("-.*\\.(jpg|png|gif).*");
+//        /*do not fetch url contains #*/
+//        this.addRegex("-.*#.*");
+        
         /*start page*/
         this.addSeed("http://news.yahoo.com/");
 
@@ -32,16 +44,17 @@ public class YahooCrawler extends BreadthCrawler {
         this.addRegex("-.*\\.(jpg|png|gif).*");
         /*do not fetch url contains #*/
         this.addRegex("-.*#.*");
+        
     }
     
     @Override
 	public void visit(Page page, CrawlDatums arg1) {
 		// TODO Auto-generated method stub
-    	String url = page.getUrl();
+    	String url = page.url();
         /*if page is news page*/
         if (Pattern.matches("http://news.yahoo.com/.+html", url)) {
             /*we use jsoup to parse page*/
-            Document doc = page.getDoc();
+            Document doc = page.doc();
 
             /*extract title and content of news by css selector*/
             String title = doc.select("h1[class=headline]").first().text();
