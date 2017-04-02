@@ -8,67 +8,51 @@ import org.jsoup.*;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import com.gargoylesoftware.htmlunit.*;
-import com.gargoylesoftware.htmlunit.html.*;
-import java.io.IOException;
+import java.io.IOException;  
 
+import com.thoughtworks.selenium.*;  
+
+import com.gargoylesoftware.htmlunit.BrowserVersion;
+import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
+import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.DomElement;
+import com.gargoylesoftware.htmlunit.html.DomNodeList;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 public class testJsoupYahoo 
 {
 	
 	public static void main(String[] args)
 	{
-		com.gargoylesoftware.htmlunit.WebClient webClient = new com.gargoylesoftware.htmlunit.WebClient(BrowserVersion.CHROME);
 
-		webClient.waitForBackgroundJavaScript(50000);
-
-		HtmlPage page1 = null;
 		
 		try 
 		{
-//			String url  = "http://tw.yahoo.com/";
-//		     Document doc = Jsoup.connect(url).get();
-//		     
-//		     //get first news tab one
-//		     Element t1 = doc.getElementById("t1");
-//		     
-//		     //get news title
-//		     Elements newsTitle = t1.select("a[href] > span");
-//		     
-//		     //print size
-//		        System.out.println("size:" + newsTitle.size());
-//		        
-//		        //print news title
-//		        for(Element e:newsTitle){
-//		         System.out.println("title:" + e.text());
-//		        }
-		        
-		    
+
+			WebClient webClient = new WebClient(BrowserVersion.FIREFOX_45);
+            HtmlPage htmlPage = (HtmlPage) webClient.getPage("https://tw.news.yahoo.com/archive");
 			
-			
-			webClient.getOptions().setJavaScriptEnabled(true);
-			
-			webClient.getOptions().setCssEnabled(false);
-			webClient.getOptions().setJavaScriptEnabled(true);
-			webClient.getOptions().setRedirectEnabled(true);
-			webClient.getOptions().setThrowExceptionOnScriptError(false);
-			webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
-			webClient.getOptions().setTimeout(50000);
-			
-			 
-			//String urlstr = "https://tw.news.yahoo.com/%E6%B7%A1%E5%AD%A3%E8%A1%9D%E8%B2%B7%E6%B0%A3-%E9%87%8F%E8%B2%A9%E5%BA%97%E6%8E%A8%E9%AE%91%E9%AD%9A-%E7%87%95%E7%AA%A9%E8%A9%A6%E5%90%83-042031924.html";
+            webClient.getOptions().setThrowExceptionOnScriptError(false);
+            
+            DomNodeList domNodeList = htmlPage.getElementsByTagName("li");
+            for (int i = 0; i < domNodeList.size(); i++) {
+                DomElement domElement = (DomElement) domNodeList.get(i);
+                System.out.println(domElement.asText());
+            }
+            webClient.close();
+            
+            
+            //String urlstr = "https://tw.news.yahoo.com/%E6%B7%A1%E5%AD%A3%E8%A1%9D%E8%B2%B7%E6%B0%A3-%E9%87%8F%E8%B2%A9%E5%BA%97%E6%8E%A8%E9%AE%91%E9%AD%9A-%E7%87%95%E7%AA%A9%E8%A9%A6%E5%90%83-042031924.html";
 			
 			String urlstr = "http://tw.news.yahoo.com/archive";
 			
-			HtmlPage htmlPage = webClient.getPage(urlstr);
-			webClient.waitForBackgroundJavaScript(10000);
 			
 			//URL url = new URL(urlstr);
 			
 			//Document document = Jsoup.parse(url, 3000);
-			//Document document = Jsoup.connect(urlstr).get();
+			Document document = Jsoup.connect(urlstr).get();
 			
-			Document document=Jsoup.parse(htmlPage.asXml());
+			//Document document=Jsoup.parse(htmlPage.asXml());
 			
 			//Element newlistone = document.getElementById("Col1-3-StreamContainerArchive-Proxy");
 			
