@@ -7,7 +7,14 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="JAR/selenium-java-client-driver.jar" sourcepath="JAR/selenium-java-client-driver-sources.jar"/>
+	<classpathentry kind="lib" path="JAR/jpcap-0.01.16-win32/jars/dev-classes_net.ultrametrics-0.03.jar"/>
+	<classpathentry kind="lib" path="JAR/jpcap-0.01.16-win32/jars/fooware_CommandLine-1.0.jar"/>
+	<classpathentry kind="lib" path="JAR/jpcap-0.01.16-win32/jars/net.sourceforge.jpcap-0.01.16.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/YahooNewsCrawler/JAR/jpcap-0.01.16-win32/jars/javadoc_net.sourceforge.jpcap-0.01.16.jar!/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Selenium-3.3.1"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/selenium-3.3.1"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
